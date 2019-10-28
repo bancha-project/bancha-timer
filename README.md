@@ -1,7 +1,7 @@
 # bancha-timer
 create timer with flutter
 
-# ユーザーストーリー
+## ユーザーストーリー
 - タイマーをスタートできる
 - タイマーをストップできる
 - タイマーを初期値に戻せる
@@ -9,7 +9,7 @@ create timer with flutter
 - スタートが音でわかる
 - ストップが音でわかる
 
-# reference
+## reference
 https://flutter.dev/
 https://flutter.dev/docs
 https://flutter.dev/docs/get-started/install

@@ -22,7 +22,7 @@ class MyTimerState extends State<MyTimer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.all(50.0),
+        padding: const EdgeInsets.only(top: 120),
         child: Column(
           children: <Widget>[
             Row(
@@ -82,7 +82,7 @@ class MyTimerState extends State<MyTimer> {
               ],
             ),
             Container(
-              margin: EdgeInsets.all(40),
+              margin: EdgeInsets.only(top: 100),
               child: Column(
                 children: <Widget>[
                   Row(
@@ -113,16 +113,6 @@ class MyTimerState extends State<MyTimer> {
                       ),
                       Text("秒"),
                     ],
-                  ),
-                  FlatButton(
-                    onPressed: _resetTimer,
-                    color: Colors.blue,
-                    child: Text(
-                      'セット',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
                   ),
                 ],
               )

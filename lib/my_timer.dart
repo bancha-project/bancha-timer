@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:numberpicker/numberpicker.dart';
 import 'package:flutter/material.dart';
 
 class MyTimer extends StatefulWidget {
@@ -9,7 +9,11 @@ class MyTimer extends StatefulWidget {
 }
 
 class MyTimerState extends State<MyTimer> {
+  int _defaultHours = 0;
+  int _defaultMinutes = 3;
+  int _defaultSeconds = 0;
   Duration _defaultTime = Duration(hours: 0, minutes: 3, seconds: 0);
+
   Duration _remainingTime = Duration(hours: 0, minutes: 3, seconds: 0);
   Timer _timer = null;
 
@@ -67,6 +71,52 @@ class MyTimerState extends State<MyTimer> {
                   ),
                 ),
               ],
+            ),
+            Container(
+              margin: EdgeInsets.all(40),
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      NumberPicker.integer(
+                          initialValue: _defaultHours,
+                          minValue: 0,
+                          maxValue: 23,
+                          onChanged: (value) => _setHours(value),
+                          listViewWidth: 40
+                      ),
+                      Text("時間"),
+                      NumberPicker.integer(
+                          initialValue: _defaultMinutes,
+                          minValue: 0,
+                          maxValue: 59,
+                          onChanged: (value) => _setMinutes(value),
+                          listViewWidth: 50
+                      ),
+                      Text("分"),
+                      NumberPicker.integer(
+                          initialValue: _defaultSeconds,
+                          minValue: 0,
+                          maxValue: 23,
+                          onChanged: (value) => _setSeconds(value),
+                          listViewWidth: 50
+                      ),
+                      Text("秒"),
+                    ],
+                  ),
+                  FlatButton(
+                    onPressed: _resetTimer,
+                    color: Colors.blue,
+                    child: Text(
+                      'セット',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              )
             )
           ],
         )
@@ -95,6 +145,37 @@ class MyTimerState extends State<MyTimer> {
     setState(() {
       _remainingTime = Duration(
           seconds: _defaultTime.inSeconds
+      );
+    });
+  }
+
+  void _setHours(int hours) {
+    setState(() {
+      _defaultHours = hours;
+    });
+    _setDefaultTime();
+  }
+
+  void _setMinutes(int minutes) {
+    setState(() {
+      _defaultMinutes = minutes;
+    });
+    _setDefaultTime();
+  }
+
+  void _setSeconds(int seconds) {
+    setState(() {
+      _defaultSeconds = seconds;
+    });
+    _setDefaultTime();
+  }
+
+  void _setDefaultTime() {
+    setState(() {
+      _defaultTime = Duration(
+        hours: _defaultHours,
+        minutes: _defaultMinutes,
+        seconds: _defaultSeconds,
       );
     });
   }

@@ -1,3 +1,4 @@
+import 'package:bancha_timer/timer.dart';
 import 'package:flutter/material.dart';
 
 class TopPage extends StatelessWidget {
@@ -12,7 +13,7 @@ class TopPage extends StatelessWidget {
           title: Text(title)
       ),
       body: Center(
-        child: Text("3:00"),
+        child: Timer()
       ),
     );
   }

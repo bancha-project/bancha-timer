@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:numberpicker/numberpicker.dart';
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audio_cache.dart';
 
 class MyTimer extends StatefulWidget {
 
@@ -18,6 +19,8 @@ class MyTimerState extends State<MyTimer> {
   Timer _timer = null;
 
   bool _isActive = false;
+
+  AudioCache _player = AudioCache();
 
   @override
   Widget build(BuildContext context) {
@@ -127,6 +130,8 @@ class MyTimerState extends State<MyTimer> {
   }
 
   void _startTimer() {
+    _player.play('game_swordwoman-greeting1.mp3');
+
     setState(() {
       _isActive = true;
     });
@@ -138,6 +143,7 @@ class MyTimerState extends State<MyTimer> {
           );
         });
       } else {
+        _player.play('game_swordwoman-faint1.mp3');
         _timer.cancel();
         debugPrint('end of timer');
       }

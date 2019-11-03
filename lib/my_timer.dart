@@ -9,6 +9,7 @@ class MyTimer extends StatefulWidget {
 }
 
 class MyTimerState extends State<MyTimer> {
+  Duration _defaultTime = Duration(hours: 0, minutes: 3, seconds: 0);
   Duration _remainingTime = Duration(hours: 0, minutes: 3, seconds: 0);
   Timer _timer = null;
 
@@ -18,7 +19,20 @@ class MyTimerState extends State<MyTimer> {
         padding: const EdgeInsets.all(50.0),
         child: Column(
           children: <Widget>[
-            Text(_formatDuration(_remainingTime)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                    _formatDuration(_remainingTime),
+                  style: TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(' / '),
+                Text(_formatDuration(_defaultTime))
+              ],
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -41,7 +55,17 @@ class MyTimerState extends State<MyTimer> {
                       color: Colors.white,
                     ),
                   ),
-                )
+                ),
+                FlatButton(
+                  onPressed: _resetTimer,
+                  color: Colors.green,
+                  child: Text(
+                    'リセット',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ],
             )
           ],
@@ -65,5 +89,13 @@ class MyTimerState extends State<MyTimer> {
 
   void _stopTimer() {
     _timer.cancel();
+  }
+
+  void _resetTimer () {
+    setState(() {
+      _remainingTime = Duration(
+          seconds: _defaultTime.inSeconds
+      );
+    });
   }
 }

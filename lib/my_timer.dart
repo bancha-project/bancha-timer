@@ -17,6 +17,8 @@ class MyTimerState extends State<MyTimer> {
   Duration _remainingTime = Duration(hours: 0, minutes: 3, seconds: 0);
   Timer _timer = null;
 
+  bool _isActive = false;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,25 +42,32 @@ class MyTimerState extends State<MyTimer> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                FlatButton(
-                  onPressed: _startTimer,
-                  color: Colors.blue,
-                  child: Text(
-                    '開始',
-                    style: TextStyle(
-                      color: Colors.white,
+                IgnorePointer(
+                  ignoring: _isActive,
+                  child: FlatButton(
+                    onPressed: _startTimer,
+                    color: !_isActive ? Colors.blue : Colors.grey,
+                    child: Text(
+                      '開始',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
-                FlatButton(
-                  onPressed: _stopTimer,
-                  color: Colors.red,
-                  child: Text(
-                    '停止',
-                    style: TextStyle(
-                      color: Colors.white,
+                IgnorePointer(
+                  ignoring: !_isActive,
+                  child: FlatButton(
+                    onPressed: _stopTimer,
+                    color: _isActive? Colors.red : Colors.grey,
+                    child: Text(
+                      '停止',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
+
                 ),
                 FlatButton(
                   onPressed: _resetTimer,
@@ -128,6 +137,9 @@ class MyTimerState extends State<MyTimer> {
   }
 
   void _startTimer() {
+    setState(() {
+      _isActive = true;
+    });
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
         _remainingTime = new Duration(
@@ -138,6 +150,9 @@ class MyTimerState extends State<MyTimer> {
   }
 
   void _stopTimer() {
+    setState(() {
+      _isActive = false;
+    });
     _timer.cancel();
   }
 

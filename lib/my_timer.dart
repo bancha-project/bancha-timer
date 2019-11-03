@@ -131,11 +131,16 @@ class MyTimerState extends State<MyTimer> {
       _isActive = true;
     });
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      setState(() {
-        _remainingTime = new Duration(
-          seconds: _remainingTime.inSeconds - 1,
-        );
-      });
+      if (_remainingTime.inSeconds > 0) {
+        setState(() {
+          _remainingTime = new Duration(
+            seconds: _remainingTime.inSeconds - 1,
+          );
+        });
+      } else {
+        _timer.cancel();
+        debugPrint('end of timer');
+      }
     });
   }
 
@@ -148,6 +153,10 @@ class MyTimerState extends State<MyTimer> {
 
   void _resetTimer () {
     setState(() {
+      if (_remainingTime.inSeconds <= 0) {
+        _isActive = false;
+      }
+
       _remainingTime = Duration(
           seconds: _defaultTime.inSeconds
       );
